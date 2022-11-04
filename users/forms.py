@@ -14,3 +14,9 @@ class LoginForm(ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password')
+
+
+class UpdateEmail(ModelForm):
+    class Meta:
+        model = User
+        fields = ("email",)

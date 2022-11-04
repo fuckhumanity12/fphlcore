@@ -1,5 +1,5 @@
 {% extends "users/base.html" %}
-{% block title %}Login Page | Forensic Phonetics & Linguistics{% endblock title %}
+{% block title %}Login Page{% endblock title %}
 {% block content %}
 <br><br><br>
 <form method="POST" class="mx-auto text-center w-75">
@@ -14,9 +14,6 @@
         <label for="InputPassword" class="form-label"><i class="fa-solid fa-lock"></i> Password</label>
         <input type="password" placeholder="Enter Your Password Here" class="form-control" style="text-align: center;"
             name="password" id="InputPassword" required>
-    </div>
-    <div class="mb-3" style="background-color: black;">
-        {{ver.captcha}}
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     <br><br><span>Don't Have An Account? <a href="{% url 'register' %}" class="btn btn-outline-secondary">Register</a></span>

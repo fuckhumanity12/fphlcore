@@ -1,8 +1,11 @@
 from pathlib import Path
 import os
+import json
+with open('/etc/config.json') as config_file:
+    config = json.load(config_file)
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = 'django-insecure-cs_mm2gj&e1&*d0@5zg7tdt6)9o8ewr1ro(t51dh6qrdxz)z=t'
-DEBUG = True
+SECRET_KEY = config["secret_key"]
+DEBUG = config["debug"]
 ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -77,3 +80,10 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5000000
 CSRF_COOKIE_HTTPONLY = True
+EMAIL_BACKEND = "django_smtp_ssl.SSLEmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = config['emuser']
+EMAIL_HOST_PASSWORD = config["empass"]
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = config['emfrommail']
