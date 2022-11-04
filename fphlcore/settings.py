@@ -6,7 +6,7 @@ with open('/etc/config.json') as config_file:
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config["secret_key"]
 DEBUG = config["debug"]
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['fphl.org', "www.fphl.org"]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
