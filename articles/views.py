@@ -4,6 +4,7 @@ from .models import *
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import *
+from django.db.models import Q
 
 
 class ArticlesList(View):
@@ -69,6 +70,20 @@ class RemoveSave(LoginRequiredMixin, View):
 #         else:
 #             messages.warning(request, "Article Doesn't Exists")
 #             return redirect("home")
+
+class About(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "articles/about.html")
+
+
+class Search(View):
+    def get(self, request, *args, **kwargs):
+        query = self.request.GET.get("q")
+        if query == '' or query == ' ':
+            messages.warning(request, "you can't search everything human!")
+            return redirect("home")
+        articles = Article.objects.filter(Q(title__icontains=query))
+        return render(request, 'articles/search-results.html', {'results': articles, })
 
 
 class AccountPage(LoginRequiredMixin, View):

@@ -26,9 +26,9 @@
                             <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <a class="nav-link active" href="{% url 'about' %}">About Us</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Dropdown
@@ -41,26 +41,26 @@
                                 </li>
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         {% if request.user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account' %}"><i class="fa-solid fa-user"></i> Account</a>
+                                <a class="nav-link active" href="{% url 'account' %}"><i class="fa-solid fa-user"></i> Account</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}"><i class="fa-solid fa-door-open"></i> Logout</a>
+                                <a class="nav-link active" href="{% url 'logout' %}"><i class="fa-solid fa-door-open"></i> Logout</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link text-primary" href="{% url 'login' %}"><i class="fa-solid fa-user"></i> Login</a>
+                                <a class="nav-link text-primary active" href="{% url 'login' %}"><i class="fa-solid fa-user"></i> Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-success" href="{% url 'register' %}"><i class="fa-sharp fa-solid fa-right-to-bracket"></i> Register</a>
+                                <a class="nav-link text-success active" href="{% url 'register' %}"><i class="fa-sharp fa-solid fa-right-to-bracket"></i> Register</a>
                             </li>
                         {% endif %}
                     </ul>
-                    <form class="d-flex" role="search">
+                    <form class="d-flex" method="GET" action="{% url 'search' %}" role="search">
                         
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <input class="form-control me-2" name="q" type="text" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
