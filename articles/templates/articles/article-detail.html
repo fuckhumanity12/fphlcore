@@ -1,0 +1,14 @@
+{% extends "users/base.html" %}
+{% block title %}{{article.title}} | Forensic Phonetics & Linguistics{% endblock title %}
+
+{% block content %}
+<div class="mx-auto">
+    <h2 class="text-center">{{article.title}}</h2>
+    <div class="mx-auto"><img style="height: auto;width: 500px" class="mx-auto img-fluid rounded d-block img-thumbnail" src="{{article.image.url}}"></div>
+    <div class="text-break text-wrap">
+        {{article.content|safe}}
+    </div>
+</div>
+
+
+{% endblock content %}

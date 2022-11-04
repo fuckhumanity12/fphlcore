@@ -3,7 +3,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-cs_mm2gj&e1&*d0@5zg7tdt6)9o8ewr1ro(t51dh6qrdxz)z=t'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -13,6 +13,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'users.apps.UsersConfig',
+    'ckeditor',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
