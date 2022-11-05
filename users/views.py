@@ -42,32 +42,21 @@ class Register(View):
         if request.user.is_authenticated:
             messages.success(request, "You Are Already Registered 😺")
             return redirect("home")
-        form = SignupForm(request.POST)
-        if form.is_valid():
-
-            user_email = User.objects.filter(
-                email=form.cleaned_data.get('email'))
-            user_name = User.objects.filter(
-                username=form.cleaned_data.get('username').lower())
-
-            if user_email.exists():
-                messages.warning(
-                    request, f"A User With The Email: {form.cleaned_data.get('email')} Already Exists")
-            elif user_name.exists():
-                messages.warning(
-                    request, f"A User With The Username: {form.cleaned_data.get('username')} Already Exists")
-            else:
-                form.username = request.POST.get("username").lower()
-                user = form.save()
-                users = authenticate(username=user.username,
-                                     password=form.cleaned_data.get("password1"))
-                login(request, users)
-                messages.success(request, "Successfully Logged In!")
-                return redirect("register")
-            return render(request, "users/register.html")
+        username = request.POST.get("username").lower()
+        email = request.POST.get("email").lower()
+        password = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+        if password == password2:
+            user = User.objects.create_user(
+                email=email, username=username, password=password)
+            users = authenticate(username=user.username,
+                                 password=password)
+            login(request, users)
+            messages.success(request, "Successfully Created Account!")
+            return redirect("home")
         else:
-            messages.warning(request, "form invalid")
-            return render(request, "users/register.html")
+            messages.warning(request, "Passwords do not match")
+        return redirect("register")
 
 
 class Logout(View):
@@ -102,7 +91,8 @@ class DelAccountConf(LoginRequiredMixin, View):
 class DelAccount(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         user = User.objects.get(username=request.user)
-        user.delete()
+        user.is_active = False
+        user.save()
         messages.info(request, "Account Successfully Deleted 😭")
         return redirect("home")
 
