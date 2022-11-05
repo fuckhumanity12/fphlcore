@@ -22,4 +22,4 @@ def create_profile(sender, instance, created, **kwargs):
             'articles/new_article_newsletter.html', {'article': instance, })
         for email in emails:
             send_mail(subject, message, "mohabgabber0@gmail.com",
-                      [email], fail_silently=False)
+                      [email], fail_silently=True)
