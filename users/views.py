@@ -10,25 +10,22 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 
 
-class Login(LoginView):
-    template_name = "users/login.html"
-    # def get(self, request, *args, **kwargs):
-    #     return render(request, "users/login.html")
+class Login(View):
+    # template_name = "users/login.html"
+    def get(self, request, *args, **kwargs):
+        return render(request, "users/login.html")
 
-    # def post(self, request, *args, **kwargs):
-    #     form = LoginForm(request.POST)
-    #     if form.is_valid():
-    #         try:
-    #             useracc = authenticate(username=form.cleaned_data.get(
-    #                 "username"), password=form.cleaned_data.get("password"),)
-    #             login(request, useracc)
-    #             messages.success(request, 'Successful')
-    #         except:
-    #             messages.warning(request, 'Data Is Incorrect')
-    #             return render(request, 'users/login.html')
-    #     else:
-    #         messages.warning(request, "Form Incorrect")
-    #     return render(request, "users/login.html")
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get("username").lower().replace(" ", "")
+        password = request.POST.get("password")
+        try:
+            users = authenticate(username=username, password=password)
+            login(request, users)
+            messages.success(request, "Successfully Logged In!")
+            return redirect("home")
+        except:
+            messages.warning(request, "Your Data Is Incorrect")
+        return render(request, "users/login.html")
 
 
 class Register(View):
@@ -42,21 +39,40 @@ class Register(View):
         if request.user.is_authenticated:
             messages.success(request, "You Are Already Registered 😺")
             return redirect("home")
-        username = request.POST.get("username").lower()
-        email = request.POST.get("email").lower()
+        username = request.POST.get("username").lower().replace(" ", "")
+        email = request.POST.get("email").lower().replace(" ", "")
         password = request.POST.get("password1")
         password2 = request.POST.get("password2")
+        theredot = False
+        thereat = False
+        for i in email:
+            if i == ".":
+                theredot = True
+            if i == "@":
+                thereat = True
         if password == password2:
-            user = User.objects.create_user(
-                email=email, username=username, password=password)
-            users = authenticate(username=user.username,
-                                 password=password)
-            login(request, users)
-            messages.success(request, "Successfully Created Account!")
-            return redirect("home")
+            if not User.objects.filter(username=username).exists():
+                if email != "" or email != " ":
+                    if thereat and theredot:
+                        user = User.objects.create_user(
+                            email=email, username=username, password=password)
+                        users = authenticate(username=user.username,
+                                             password=password)
+                        login(request, users)
+                        messages.success(
+                            request, "Successfully Created Account!")
+                        return redirect("home")
+                    else:
+                        messages.warning(request, "Email Invalid!")
+                else:
+                    messages.warning(request, "Email Cannot Be Empty")
+            else:
+                messages.warning(
+                    request, "Username Is Already Taken, Choose Another One")
+
         else:
             messages.warning(request, "Passwords do not match")
-        return redirect("register")
+        return render(request, "users/register.html")
 
 
 class Logout(View):
