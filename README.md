@@ -2,7 +2,7 @@
 An educational blog with articles about forensic phonetics &amp; linguistics
 # license
 ```
-  Privalise, A Secure Privacy Friendly Social Network
+  FPHLCORE, An educational blog about Forensic Phonetics & Linguistics
   Copyright (C) 2022 Mohab Gabber
 
   This program is free software: you can redistribute it and/or modify
