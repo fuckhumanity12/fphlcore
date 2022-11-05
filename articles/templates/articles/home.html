@@ -8,9 +8,11 @@
         <h1 class="text-center">Check Out Our Articles 😻</h1>
         {% for article in articles %}
             <div class="card mx-auto" style="width: 18rem; margin-top: 10px;">
+                <a href="{% url 'article-detail' article.id %}" class="text-decoration-none" style="color: black;">
                 <img src="{{article.image.url}}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{article.title}}</h5>
+                </a>
                     <p class="card-text">{{article.description}}</p>
                     <p class="card-text"><small class="text-muted">{{article.date|date:"SHORT_DATE_FORMAT"}}</small></p>
                     <a href="{% url 'article-detail' article.id %}" class="btn btn-primary">Open</a> 
