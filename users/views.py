@@ -52,7 +52,7 @@ class Register(View):
                 thereat = True
         if password == password2:
             if not User.objects.filter(username=username).exists():
-                if email != "" or email != " ":
+                if email != "" or email != " " or email == None:
                     if thereat and theredot:
                         user = User.objects.create_user(
                             email=email, username=username, password=password)
