@@ -12,6 +12,7 @@ class Article(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=500, blank=True, null=True)
     image = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True,)
+    newsletter = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title
