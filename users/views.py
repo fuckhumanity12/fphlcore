@@ -16,7 +16,7 @@ class Login(View):
         return render(request, "users/login.html")
 
     def post(self, request, *args, **kwargs):
-        username = request.POST.get("username").lower().replace(" ", "")
+        username = request.POST.get("username").replace(" ", "")
         password = request.POST.get("password")
         try:
             users = authenticate(username=username, password=password)
