@@ -22,7 +22,7 @@ class Article(models.Model):
     image = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True,)
     newsletter = models.BooleanField(default=True)
     subject = models.ForeignKey(
-        Subject, on_delete=models.CASCADE, blank=True, null=True)
+        Subject, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
