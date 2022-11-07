@@ -91,3 +91,16 @@ class AccountPage(LoginRequiredMixin, View):
         savedarticles = Saved.objects.get(owner=request.user)
         context = {"saved": savedarticles.articles.all(), }
         return render(request, "articles/account.html", context)
+
+
+class Tag(View):
+    def get(self, request, subject, *args, **kwargs):
+        if Subject.objects.filter(name=subject).exists():
+            subj = Subject.objects.get(name=subject)
+            artciles = Article.objects.filter(
+                subject=subj).order_by("-date")
+            context = {"articles": artciles, "tag": subj.name}
+        else:
+            messages.warning(request, "Subject Does Not Exist")
+            return redirect("home")
+        return render(request, "articles/subject.html", context)
