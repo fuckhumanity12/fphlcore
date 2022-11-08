@@ -19,7 +19,7 @@ class ArticlesList(View):
             page_obj = p.page(1)
         except EmptyPage:
             page_obj = p.page(p.num_pages)
-        page_obj = paginator.get_page(page_number)
+        page_obj = p.get_page(page_number)
         return render(request, "articles/home.html", {"articles": Articles, 'page_obj': page_obj})
 
 
