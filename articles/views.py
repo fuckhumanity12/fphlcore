@@ -93,7 +93,16 @@ class Search(View):
             messages.warning(request, "you can't search everything human!")
             return redirect("home")
         articles = Article.objects.filter(Q(title__icontains=query))
-        return render(request, 'articles/search-results.html', {'results': articles, })
+        p = Paginator(articles, 10)
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        page_obj = p.get_page(page_number)
+        return render(request, 'articles/search-results.html', {'results': page_obj, })
 
 
 class AccountPage(LoginRequiredMixin, View):
@@ -107,9 +116,18 @@ class Tag(View):
     def get(self, request, subject, *args, **kwargs):
         if Subject.objects.filter(name=subject).exists():
             subj = Subject.objects.get(name=subject)
-            artciles = Article.objects.filter(
+            articles = Article.objects.filter(
                 subject=subj).order_by("-date")
-            context = {"articles": artciles, "tag": subj.name}
+            p = Paginator(articles, 10)
+            page_number = request.GET.get('page')
+            try:
+                page_obj = p.get_page(page_number)
+            except PageNotAnInteger:
+                page_obj = p.page(1)
+            except EmptyPage:
+                page_obj = p.page(p.num_pages)
+            page_obj = p.get_page(page_number)
+            context = {"articles": page_obj, "tag": subj.name}
         else:
             messages.warning(request, "Subject Does Not Exist")
             return redirect("home")
