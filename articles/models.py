@@ -45,7 +45,8 @@ class Article(models.Model):
 
 class Saved(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, primary_key=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="savedarticles")
     articles = models.ManyToManyField(Article)
 
     def __str__(self):

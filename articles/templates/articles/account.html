@@ -15,16 +15,7 @@
         <div class="container">
             <div class="row mx-auto">
                 {% for article in saved %}
-                    <div class="card mx-auto" style="width: 18rem; margin-top: 10px;">
-                        <img src="{{article.image.url}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{article.title}}</h5>
-                            <p class="card-text">{{article.description}}</p>
-                            <p class="card-text"><small class="text-muted">{{article.date|date:"SHORT_DATE_FORMAT"}}</small></p>
-                            <a href="{% url 'article-detail' article.id %}" class="btn btn-primary">Open</a>
-                            <a href="{% url 'remove-save' article.id %}" class="btn btn-primary">Remove</a>
-                        </div>
-                    </div>
+                    {% include 'articles/articles-template.html' %}
                 {% endfor %}
             </div>
         </div>

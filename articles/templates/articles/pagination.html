@@ -1,0 +1,8 @@
+{%if page_obj.has_previous %}
+<a href="?page={{page_obj.previous_page_number}}"></a>
+        {% endif %}
+        <span>{{page_obj.number}}</span> {# the current page number #}
+
+        {%if page_obj.has_next %} {# whether the next page exists #}
+        <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+        {% endif %}

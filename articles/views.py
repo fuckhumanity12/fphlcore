@@ -5,12 +5,22 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import *
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 
 class ArticlesList(View):
     def get(self, request, *args, **kwargs):
         Articles = Article.objects.all().order_by("-date")
-        return render(request, "articles/home.html", {"articles": Articles, })
+        p = Paginator(Articles, 25)
+        page_number = request.GET.get('page')
+        try:
+            page_obj = p.get_page(page_number)
+        except PageNotAnInteger:
+            page_obj = p.page(1)
+        except EmptyPage:
+            page_obj = p.page(p.num_pages)
+        page_obj = paginator.get_page(page_number)
+        return render(request, "articles/home.html", {"articles": Articles, 'page_obj': page_obj})
 
 
 class ArticleDetail(View):
