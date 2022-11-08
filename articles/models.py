@@ -2,6 +2,7 @@ from django.db import models
 import uuid
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+from tinymce.models import HTMLField
 
 
 class Subject(models.Model):
@@ -15,7 +16,7 @@ class Subject(models.Model):
 class Article(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, primary_key=True)
     title = models.CharField(max_length=300)
-    content = RichTextField()
+    content = HTMLField()
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=500, blank=True, null=True)
