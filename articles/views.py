@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 class ArticlesList(View):
     def get(self, request, *args, **kwargs):
         Articles = Article.objects.all().order_by("-date")
-        p = Paginator(Articles, 25)
+        p = Paginator(Articles, 10)
         page_number = request.GET.get('page')
         try:
             page_obj = p.get_page(page_number)
@@ -20,7 +20,7 @@ class ArticlesList(View):
         except EmptyPage:
             page_obj = p.page(p.num_pages)
         page_obj = p.get_page(page_number)
-        return render(request, "articles/home.html", {"articles": Articles, 'page_obj': page_obj})
+        return render(request, "articles/home.html", {"articles": page_obj, })
 
 
 class ArticleDetail(View):
