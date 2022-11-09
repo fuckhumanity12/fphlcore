@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'articles.apps.ArticlesConfig',
     'users.apps.UsersConfig',
     'django.contrib.sites',
+    'api.apps.ApiConfig',
     'django.contrib.sitemaps',
     'tinymce',
 ]

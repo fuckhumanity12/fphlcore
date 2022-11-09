@@ -65,22 +65,6 @@ class RemoveSave(LoginRequiredMixin, View):
         return redirect("home")
 
 
-# class CommentView(LoginRequiredMixin, View):
-#     def post(self, request, article, *args, **kwargs):
-#         form = CommentForm(request.POST)
-#         if Article.objects.filter(id=article).exists():
-#             articles = Article.objects.get(id=article)
-#             if form.is_valid():
-#                 Comment.objects.create(
-#                     article=articles, author=request.user, content=form.cleaned_data.get("content"))
-#                 return redirect("article-detail", article)
-#             else:
-#                 messages.warning(request, "Something Went Wrong")
-#                 return redirect("article-detail", article)
-#         else:
-#             messages.warning(request, "Article Doesn't Exists")
-#             return redirect("home")
-
 class About(View):
     def get(self, request, *args, **kwargs):
         return render(request, "articles/about.html")

@@ -35,21 +35,6 @@ class Article(models.Model):
         return reverse("article-detail", kwargs={"pk": str(self.id)})
 
 
-# class Comment(models.Model):
-#     id = models.UUIDField(editable=False, default=uuid.uuid4, primary_key=True)
-#     content = models.TextField()
-#     author = models.ForeignKey(User, on_delete=models.CASCADE)
-#     article = models.ForeignKey(
-#         Article, on_delete=models.CASCADE, related_name="comments")
-#     date = models.DateTimeField(auto_now_add=True)
-
-#     class Meta:
-#         ordering = ["-date"]
-
-#     def __str__(self):
-#         return self.content
-
-
 class Saved(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, primary_key=True)
     owner = models.ForeignKey(

@@ -9,5 +9,4 @@ urlpatterns = [
     path("about/", About.as_view(), name="about"),
     path("search/", Search.as_view(), name="search"),
     path("subject/<str:subject>", Tag.as_view(), name="subject"),
-    # path("comment/<str:article>", CommentView.as_view(), name="comment"),
 ]
