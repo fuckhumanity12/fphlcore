@@ -11,7 +11,7 @@ from django.core.paginator import Paginator
 class ArticlesList(View):
     def get(self, request, *args, **kwargs):
         Articles = Article.objects.all().order_by("-date")
-        p = Paginator(Articles, 10)
+        p = Paginator(Articles, 6)
         page_number = request.GET.get('page')
         try:
             page_obj = p.get_page(page_number)
@@ -93,7 +93,7 @@ class Search(View):
             messages.warning(request, "you can't search everything human!")
             return redirect("home")
         articles = Article.objects.filter(Q(title__icontains=query))
-        p = Paginator(articles, 10)
+        p = Paginator(articles, 6)
         page_number = request.GET.get('page')
         try:
             page_obj = p.get_page(page_number)
@@ -118,7 +118,7 @@ class Tag(View):
             subj = Subject.objects.get(name=subject)
             articles = Article.objects.filter(
                 subject=subj).order_by("-date")
-            p = Paginator(articles, 10)
+            p = Paginator(articles, 6)
             page_number = request.GET.get('page')
             try:
                 page_obj = p.get_page(page_number)

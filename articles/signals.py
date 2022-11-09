@@ -14,15 +14,14 @@ def create_saved(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Article)
 def create_profile(sender, instance, created, **kwargs):
-    if created:
-        if instance.newsletter:
-            subject = f'New Article: {instance.title}'
-            emails = User.objects.filter(is_active=True).exclude(
-                email='').values_list('email', flat=True)
-            message = render_to_string(
-                'articles/new_article_newsletter.html', {'article': instance, })
-            for email in emails:
-                send_mail(subject, message, "mohabgabber0@gmail.com",
-                          [email], fail_silently=True)
-        else:
-            pass
+    if instance.newsletter:
+        subject = f'New Article: {instance.title}'
+        emails = User.objects.filter(is_active=True).exclude(
+            email='').values_list('email', flat=True)
+        message = render_to_string(
+            'articles/new_article_newsletter.html', {'article': instance, })
+        for email in emails:
+            send_mail(subject, message, "mohabgabber0@gmail.com",
+                      [email], fail_silently=True)
+    else:
+        pass
