@@ -32,7 +32,7 @@ class Article(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("articles:article-detail", kwargs={"pk": str(self.id)})
+        return reverse("article-detail", kwargs={"pk": str(self.id)})
 
 
 # class Comment(models.Model):
