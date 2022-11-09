@@ -1,4 +1,8 @@
 {% extends "users/base.html" %}
+{% block descriptionmeta %}All Articles About {{tag}}{% endblock descriptionmeta %}
+{% block metatags %}
+<meta name="keywords" content="{{tag}}">
+{% endblock metatags %}
 {% block title %}{{tag}}{% endblock title %}
 {% block content %}
     <div class="container">

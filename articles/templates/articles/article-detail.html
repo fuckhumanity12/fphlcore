@@ -1,6 +1,10 @@
 {% extends "users/base.html" %}
 {% block title %}{{article.title}}{% endblock title %}
-
+{% block descriptionmeta %}{{article.description}}{% endblock descriptionmeta %}
+{% block metatags %}
+<meta name="author" content="{{article.author}}">
+<meta name="keywords" content="{{article.keywords}}">
+{% endblock metatags %}
 {% block content %}
 <br>
 <div class="mx-auto">

@@ -1,8 +1,8 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
-from ckeditor.fields import RichTextField
 from tinymce.models import HTMLField
+from django.urls import reverse
 
 
 class Subject(models.Model):
@@ -24,9 +24,15 @@ class Article(models.Model):
     newsletter = models.BooleanField(default=True)
     subject = models.ForeignKey(
         Subject, on_delete=models.CASCADE)
+    keywords = models.CharField(
+        max_length=1000, default="forensic phonetics & linguistics, forensic phonetics, phonetics")
+    lastmodified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("articles:article-detail", kwargs={"pk": str(self.id)})
 
 
 # class Comment(models.Model):

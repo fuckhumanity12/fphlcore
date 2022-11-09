@@ -7,6 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config["secret_key"]
 DEBUG = config["debug"]
 ALLOWED_HOSTS = ['127.0.0.1', 'fphl.org', "www.fphl.org"]
+SITE_ID = 1
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -16,6 +17,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'users.apps.UsersConfig',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'tinymce',
 ]
 MIDDLEWARE = [
