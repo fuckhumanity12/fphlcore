@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'users.apps.UsersConfig',
+    'wiki.apps.WikiConfig',
     'questions.apps.QuestionsConfig',
     'django.contrib.sites',
     'django.contrib.sitemaps',
