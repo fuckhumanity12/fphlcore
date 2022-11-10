@@ -54,3 +54,9 @@ class ScorePage(LoginRequiredMixin, View):
             messages.warning(request, "this question set does not exist")
             return redirect("questions-list")
         return render(request, "questions/score-page.html", {"quests": score})
+
+
+class ListScore(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        userscores = Score.objects.filter(user=request.user).order_by("-date")
+        return render(request, "questions/list-scores.html", {"scores": userscores, })

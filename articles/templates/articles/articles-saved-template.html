@@ -8,13 +8,9 @@
     <p class="card-text"><small class="text-muted">{{article.date|date:"SHORT_DATE_FORMAT"}}</small></p>
     <a href="{% url 'article-detail' article.id %}" class="btn btn-primary">Open</a>
     {% if request.user.is_authenticated %}
-        {% if article in saved %}
-            <a href="{% url 'remove-save' article.id %}" class="btn btn-outline-danger">Remove</a>
-        {% else %}
-            <a href="{% url 'save-article' article.id %}" class="btn btn-primary">Save</a>
-        {% endif %}
+        <a href="{% url 'remove-save' article.id %}" class="btn btn-outline-danger">Remove</a>
     {% else %}
-    <a href="{% url 'login' %}" class="btn btn-danger">Login To Save</a>
+        <a href="{% url 'login' %}" class="btn btn-danger">Login To Save</a>
     {% endif %}
     <br><br><a href="{% url 'subject' article.subject.name %}" class="text-decoration-none">Subject:
         {{article.subject.name}}</a>

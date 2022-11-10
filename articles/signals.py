@@ -17,7 +17,7 @@ def create_profile(sender, instance, created, **kwargs):
     if instance.newsletter:
         subject = f'New Article: {instance.title}'
         emails = User.objects.filter(is_active=True).exclude(
-            email='').values_list('email', flat=True)
+            email='').exclude(is_active=False).values_list('email', flat=True)
         message = render_to_string(
             'articles/new_article_newsletter.html', {'article': instance, })
         for email in emails:

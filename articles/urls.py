@@ -8,5 +8,7 @@ urlpatterns = [
     path("account/", AccountPage.as_view(), name="account"),
     path("about/", About.as_view(), name="about"),
     path("search/", Search.as_view(), name="search"),
-    path("subject/<str:subject>", Tag.as_view(), name="subject"),
+    path("subject/<str:subject>/", Tag.as_view(), name="subject"),
+    path("list/saved/articles/", ListSavedArticles.as_view(),
+         name="saved-articles-list"),
 ]

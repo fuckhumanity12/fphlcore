@@ -20,15 +20,19 @@ class ArticlesList(View):
         except EmptyPage:
             page_obj = p.page(p.num_pages)
         page_obj = p.get_page(page_number)
-        return render(request, "articles/home.html", {"articles": page_obj, })
+        if request.user.is_authenticated:
+            context = {"articles": page_obj, "saved": Saved.objects.get(
+                owner=request.user).articles.all()}
+        else:
+            context = {"articles": page_obj, }
+        return render(request, "articles/home.html", context)
 
 
 class ArticleDetail(View):
     def get(self, request, pk, *args, **kwargs):
         if Article.objects.filter(id=pk).exists():
             article = Article.objects.get(id=pk)
-            # comments = Comment.objects.filter(article=article)
-            context = {"article": article, }  # "comments": comments,
+            context = {"article": article, }
         else:
             messages.warning(request, "This Article Doesn't Exists")
             return redirect("home")
@@ -86,7 +90,12 @@ class Search(View):
         except EmptyPage:
             page_obj = p.page(p.num_pages)
         page_obj = p.get_page(page_number)
-        return render(request, 'articles/search-results.html', {'results': page_obj, })
+        if request.user.is_authenticated:
+            context = {'results': page_obj, "saved": Saved.objects.get(
+                owner=request.user).articles.all()}
+        else:
+            context = {'results': page_obj, }
+        return render(request, 'articles/search-results.html', context)
 
 
 class AccountPage(LoginRequiredMixin, View):
@@ -111,8 +120,18 @@ class Tag(View):
             except EmptyPage:
                 page_obj = p.page(p.num_pages)
             page_obj = p.get_page(page_number)
-            context = {"articles": page_obj, "tag": subj.name}
+            if request.user.is_authenticated:
+                context = {"articles": page_obj, "tag": subj.name, "saved": Saved.objects.get(
+                    owner=request.user).articles.all()}
+            else:
+                context = {"articles": page_obj, "tag": subj.name, }
         else:
             messages.warning(request, "Subject Does Not Exist")
             return redirect("home")
         return render(request, "articles/subject.html", context)
+
+
+class ListSavedArticles(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        savedarts = Saved.objects.get(owner=request.user)
+        return render(request, "articles/list-saved-arts.html", {"saved": savedarts.articles.all(), })

@@ -12,7 +12,11 @@ phonology, linguistics, and much more.{% endblock descriptionmeta %}
     <div class="row mx-auto">
         <h1 class="text-center">Check Out Our Articles</h1>
         {% for article in articles %}
-        {% include 'articles/articles-template.html' %}
+            {% if article in request.user.saved_articles.articles %}
+            {% include 'articles/articles-saved-template.html' %}
+            {% else %}
+            {% include 'articles/articles-template.html' %}
+            {% endif %}
         {% endfor %}
         {% include 'articles/pagination.html' %}
         <br>
