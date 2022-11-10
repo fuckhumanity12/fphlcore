@@ -8,7 +8,9 @@
         {% for change in changes %}
             <div class="card mx-auto">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><p>{{change.changetext}}</p><p>By: {{change.maker.username}}</p><p>Date: {{change.date|date:"SHORT_DATE_FORMAT"}}</p></li>
+                    <li class="list-group-item"><p>{{change.changetext}} | {% if change.status == "1" %}<span class="badge bg-secondary">Pending</span>{% elif change.status == "2" %}<span class="badge bg-danger">Denied</span>{% elif change.status == "3" %}<span class="badge bg-success">Accepted</span>{% endif %}</p>
+                        <p>By: {{change.maker.username}}</p>
+                        <p>Date: {{change.date|date:"SHORT_DATE_FORMAT"}}</p></li>
                 </ul>
             </div>
         {% endfor %}
