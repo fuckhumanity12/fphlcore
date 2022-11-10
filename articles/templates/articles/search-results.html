@@ -5,7 +5,11 @@
     <div class="row mx-auto">
         <h1 class="text-center">Your Search Results</h1>
         {% for article in results %}
-        {% include 'articles/articles-template.html' %}
+            {% if article in request.user.saved.articles %}
+                {% include 'articles/articles-saved-template.html' %}
+            {% else %}
+                {% include 'articles/articles-template.html' %}
+            {% endif %}
         {% endfor %}
         
     </div>

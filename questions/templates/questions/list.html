@@ -1,0 +1,26 @@
+{% extends "users/base.html" %}
+{% block descriptionmeta %}Questions and exercises on various topics in the forensic phonetics and linguistics field{% endblock descriptionmeta %}
+{% block title %}Questions and exercises{% endblock title %}
+
+{% block content %}
+<div class="container mx-auto">
+    <div class="row w-auto">
+        {% for quest in questions %}
+            <div class="card mx-auto mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <a href="{% url 'questions-detail' quest.id %}" class="text-decoration-none">
+                            <div class="card-body text-black">
+                                <h5 class="card-title">{{quest.name}}</h5>
+                                <p class="card-text">Subjects Included: {% for subj in quest.subjects.all %}{{subj.name}}.{% endfor %}</p>
+                                <p class="card-text">Number Of Questions: {{quest.questions.count}}</p>
+                                <p class="card-text"><small class="text-muted">{{quest.date}}</small></p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

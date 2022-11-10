@@ -14,6 +14,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("articles.urls")),
     path("auth/", include("users.urls")),
+    path("questions/", include("questions.urls")),
     path("favicon.ico", RedirectView.as_view(
         url=staticfiles_storage.url("favicon.ico")),),
     path('tinymce/', include('tinymce.urls')),

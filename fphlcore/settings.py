@@ -17,8 +17,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'articles.apps.ArticlesConfig',
     'users.apps.UsersConfig',
+    'questions.apps.QuestionsConfig',
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    'rest_framework',
     'tinymce',
 ]
 MIDDLEWARE = [
