@@ -13,7 +13,7 @@ def create_saved(sender, instance, created, **kwargs):
 
 
 @receiver(post_save, sender=Article)
-def create_profile(sender, instance, created, **kwargs):
+def create_newsletter(sender, instance, created, **kwargs):
     if instance.newsletter:
         subject = f'New Article: {instance.title}'
         emails = User.objects.filter(is_active=True).exclude(
