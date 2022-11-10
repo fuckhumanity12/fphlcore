@@ -15,12 +15,12 @@
         {{article.content|safe}}
     </div>
     {% if request.user.is_authenticated %}
-        <div class="text-center mt-1">
+        <div class="text-center mt-1 mb-1">
             <a href="{% url 'changes-history' article.id %}" class="text-decoration-none fs-5"><i class="fa-sharp fa-solid fa-clock-rotate-left"></i> Change History</a>
             <a href="{% url 'change-edit' article.id %}" class="text-decoration-none fs-5">| <i class="fa-sharp fa-solid fa-pen-nib"></i> Edit This Article</a>
         </div>
     {% else %}
-        <div class="text-center mt-1">
+        <div class="text-center mt-1 mb-1">
             <a href="{% url 'changes-history' article.id %}" class="text-decoration-none fs-5"><i class="fa-sharp fa-solid fa-clock-rotate-left"></i> Change History</a>
             <a href="#" class="text-decoration-none fs-5"><i class="fa-sharp fa-solid fa-pen-nib"></i> Login Edit This Article</a>
         </div>
