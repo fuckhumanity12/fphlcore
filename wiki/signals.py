@@ -16,7 +16,7 @@ def send_article_wiki(sender, instance, created, **kwargs):
             message = render_to_string(
                 'wiki/article_wiki_newsletter.html', {'change': instance, })
             for email in emails:
-                send_mail(title, message, "mohabgabber0@gmail.com",
+                send_mail(title, message, "forensicphonetician@gmail.com",
                           [email], fail_silently=True)
     else:
         if instance.status == "3":

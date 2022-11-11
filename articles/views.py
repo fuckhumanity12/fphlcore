@@ -6,6 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import *
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 class ArticlesList(View):
@@ -72,6 +74,35 @@ class RemoveSave(LoginRequiredMixin, View):
 class About(View):
     def get(self, request, *args, **kwargs):
         return render(request, "articles/about.html")
+
+
+class Contact(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "articles/contact-us.html")
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get("message") != "" or request.POST.get("message") != " ":
+            if request.POST.get("title") != "" or request.POST.get("title") != " ":
+                if request.POST.get("sendermail") != "" or request.POST.get("sendermail") != " ":
+                    message = request.POST.get("message")
+                    title = request.POST.get("title")
+                    sendermail = request.POST.get("sendermail")
+                    emails = User.objects.filter(is_superuser=True).exclude(
+                        email="").values_list('email', flat=True)
+                    template = render_to_string("articles/contact-submission.html", {
+                                                "message": message, "title": title, "sendermail": sendermail, })
+                    for email in emails:
+                        send_mail("New Contact Us submission",
+                                  template, "forensicphonetician@gmail.com", [email], fail_silently=True)
+                    messages.success(
+                        request, "Your Message Was Submitted Successfully")
+                else:
+                    messages.warning(request, "Email Can't Be Empty")
+            else:
+                messages.warning(request, "Subject Can't Be Empty")
+        else:
+            messages.warning(request, "Message Can't Be Empty")
+        return render(request, "articles/contact-us.html")
 
 
 class Search(View):

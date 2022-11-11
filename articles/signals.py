@@ -21,7 +21,7 @@ def create_newsletter(sender, instance, created, **kwargs):
         message = render_to_string(
             'articles/new_article_newsletter.html', {'article': instance, })
         for email in emails:
-            send_mail(subject, message, "mohabgabber0@gmail.com",
+            send_mail(subject, message, "forensicphonetician@gmail.com",
                       [email], fail_silently=True)
     else:
         pass
