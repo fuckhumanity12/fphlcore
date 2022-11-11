@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Your Score Is: {{score.score}}%</h5>
                     <p class="card-text">Number Of Questions: {{score.questset.questions.count}}</p>
-                    <p class="card-text">Subjects Included: {% for subj in scores.questset.subjects.all %}{{subj.name}}.{% endfor %}</p>
+                    <p class="card-text">Subjects Included: {% for subj in score.questset.subjects.all %}{{subj.name}}.{% endfor %}</p>
                 </div>
             </div>
         </a>

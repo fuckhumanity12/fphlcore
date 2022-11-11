@@ -25,6 +25,11 @@ class QuestionSet(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     subjects = models.ManyToManyField(Subject)
     solves = models.ManyToManyField(User, blank=True)
+    private = models.BooleanField(default=False)
+    choose_users = models.ManyToManyField(
+        User, related_name="allowed_to_solve", blank=True)
+    repeat_solves = models.BooleanField(default=True)
+    hidden_answers = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

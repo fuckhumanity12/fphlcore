@@ -16,7 +16,23 @@ class QuestionDetail(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         if QuestionSet.objects.filter(id=pk).exists():
             qset = QuestionSet.objects.get(id=pk)
-
+            if qset.private:
+                if request.user in qset.choose_users.all():
+                    pass
+                else:
+                    messages.warning(request, "This Is A Private Exam")
+                    return redirect("questions-list")
+            else:
+                pass
+            if not qset.repeat_solves:
+                if request.user in qset.solves.all():
+                    messages.warning(
+                        request, "This Is A One-Solve Only Exam, And You Did Solve It")
+                    return redirect("questions-list")
+                else:
+                    pass
+            else:
+                pass
         else:
             messages.warning(request, "Question Set Doesn't Exist")
             return redirect("home")
@@ -25,6 +41,22 @@ class QuestionDetail(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         if QuestionSet.objects.filter(id=pk).exists():
             qset = QuestionSet.objects.get(id=pk)
+            if qset.private:
+                if request.user in qset.choose_users.all():
+                    pass
+                else:
+                    messages.warning(request, "This Is A Private Exam")
+                    return redirect("questions-list")
+            else:
+                pass
+            if not qset.repeat_solves:
+                if request.user in qset.solves.all():
+                    messages.warning(request, "This Is A One-Solve Only Exam")
+                    return redirect("questions-list")
+                else:
+                    pass
+            else:
+                pass
             score = 0
             for q in qset.questions.all():
                 ans = request.POST.get(str(q.id))

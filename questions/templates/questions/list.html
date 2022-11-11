@@ -6,20 +6,59 @@
 <div class="container mx-auto">
     <div class="row w-auto">
         {% for quest in questions %}
-            <div class="card mx-auto mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-8">
-                        <a href="{% url 'questions-detail' quest.id %}" class="text-decoration-none">
-                            <div class="card-body text-black">
-                                <h5 class="card-title">{{quest.name}}</h5>
-                                <p class="card-text">Subjects Included: {% for subj in quest.subjects.all %}{{subj.name}}.{% endfor %}</p>
-                                <p class="card-text">Number Of Questions: {{quest.questions.count}}</p>
-                                <p class="card-text"><small class="text-muted">{{quest.date}}</small></p>
+            {% if quest.private == True %}
+                {% if request.user in quest.choose_users.all %}
+                    <div class="card mx-auto mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-8">
+                                {% if quest.repeat_solves %}
+                                    {% if request.user in quest.sovles.all %}
+                                        <a href="#" class="pe-none text-decoration-none">
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{% url 'questions-detail' quest.id %}" class="text-decoration-none">
+                                {% endif %}
+                                    <div class="card-body text-black">
+                                        <h5 class="card-title">{{quest.name}}</h5>
+                                        <p class="card-text">Subjects Included: {% for subj in quest.subjects.all %}{{subj.name}}.{% endfor %}</p>
+                                        <p class="card-text">Number Of Questions: {{quest.questions.count}}</p>
+                                        <p class="card-text"><small class="text-muted">{{quest.date|date:"SHORT_DATE_FORMAT"}}</small></p>
+                                        {% if quest.private %}<p class="card-text badge bg-danger">Private</p>{% else %}<p class="card-text badge bg-success">
+                                            Public</p>{% endif %}
+                                        {% if quest.hidden_answers %}<p class="card-text badge bg-danger">Hidden Answers</p>{% else %}<p
+                                            class="card-text badge bg-success">Public Answers</p>{% endif %}
+                                        {% if not quest.repeat_solves %}<p class="card-text badge bg-danger">One-Solve</p>{% else %}<p
+                                            class="card-text badge bg-success">Repeatable</p>{% endif %}
+                                        {% if request.user in quest.sovles.all %}<p class="card-text badge bg-warning">SOLVED</p>{% else %}<p
+                                            class="card-text badge bg-success">NOT SOLVED</p>{% endif %}
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                        </div>
                     </div>
+                {% endif %}
+            {% else %}
+                <div class="card mx-auto mb-3" style="max-width: 540px;">
+                    <a href="{% url 'questions-detail' quest.id %}" class="text-decoration-none">
+                        <div class="row g-0">
+                            <div class="col-md-8">
+                                <div class="card-body text-black">
+                                    <h5 class="card-title">{{quest.name}}</h5>
+                                    <p class="card-text">Subjects Included: {% for subj in quest.subjects.all %}{{subj.name}}.{% endfor %}</p>
+                                    <p class="card-text">Number Of Questions: {{quest.questions.count}}</p>
+                                    <p class="card-text"><small class="text-muted">{{quest.date|date:"SHORT_DATE_FORMAT"}}</small></p>
+                                    {% if quest.private %}<p class="card-text badge bg-danger">Private</p>{% else %}<p class="card-text badge bg-success">
+                                        Public</p>{% endif %}
+                                    {% if quest.hidden_answers %}<p class="card-text badge bg-danger">Hidden Answers</p>{% else %}<p
+                                        class="card-text badge bg-success">Public Answers</p>{% endif %}
+                                    {% if not quest.repeat_solves %}<p class="card-text badge bg-danger">One-Solve</p>{% else %}<p
+                                        class="card-text badge bg-success">Repeatable</p>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
 </div>

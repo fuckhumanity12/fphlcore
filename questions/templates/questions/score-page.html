@@ -1,32 +1,46 @@
-{% extends "users/base.html" %}
-{% block descriptionmeta %}Questions and exercises on various topics in the forensic phonetics and linguistics field{% endblock descriptionmeta %}
-{% block title %}{{quests.user.username}} Score Page{% endblock title %}
+{% extends "users/base.html" %} 
+{% block descriptionmeta %}Questions and
+exercises on various topics in the forensic phonetics and linguistics field{% endblock descriptionmeta %} 
+
+{% block title %}{{quests.user.username}} Score Page{% endblock title %} 
 
 {% block content %}
 <div class="container mx-auto">
-    <div class="col w-auto mx-auto">
-
-        <div class="card w-100 mx-auto text-bg-{% if quests.score <= 50 %}danger{% else %}success{% endif %} mb-3" style="max-width: 540px;">
-            <div class="card-header">{{quests.questset.name}}</div>
-            <div class="card-body">
-                <h5 class="card-title">Your Score Is: {{quests.score}}</h5>
-                <p class="card-text">Number Of Questions: {{quests.questset.questions.count}}</p>
-                <p class="card-text">Subjects Included: {% for subj in quests.questset.subjects.all %}{{subj.name}}.{% endfor %}</p>
-            </div>
-        </div>
-        <h2 class="text-center">Answers: </h2>
-        {% for quest in quests.questset.questions.all %}
-            <div class="card mx-auto mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-8">
-                        <div class="card-body text-black">
-                            <h5 class="card-title">Q - {{quest.quest}}</h5>
-                            <h5 class="card-text">A - {{quest.ans}}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+  <div class="col w-auto mx-auto">
+    <div
+      class="card w-100 mx-auto text-bg-{% if quests.score <= 50 %}danger{% else %}success{% endif %} mb-3"
+      style="max-width: 540px"
+    >
+      <div class="card-header">{{quests.questset.name}}</div>
+      <div class="card-body">
+        <h5 class="card-title">Your Score Is: {{quests.score}}</h5>
+        <p class="card-text">
+          Number Of Questions: {{quests.questset.questions.count}}
+        </p>
+        <p class="card-text">
+          Subjects Included: {% for subj in quests.questset.subjects.all %}{{subj.name}}.{% endfor %}
+        </p>
+      </div>
     </div>
+
+    {% if quests.questset.hidden_answers %}
+      <h2 class="text-center">Answers Are Hidden By The Creator</h2>
+    {% else %}
+      <h2 class="text-center">Answers:</h2>
+      {% for quest in quests.questset.questions.all %}
+        <div class="card mx-auto mb-3" style="max-width: 540px">
+          <div class="row g-0">
+            <div class="col-md-8">
+              <div class="card-body text-black">
+                <h5 class="card-title">Q - {{quest.quest}}</h5>
+                <h5 class="card-text">A - {{quest.ans}}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %} 
+    {% endif %}
+    
+  </div>
 </div>
 {% endblock content %}
