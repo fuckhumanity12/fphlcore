@@ -3,6 +3,8 @@ from django.views import View
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 class QuestList(LoginRequiredMixin, View):
@@ -12,6 +14,7 @@ class QuestList(LoginRequiredMixin, View):
         return render(request, "questions/list.html", {"questions": quests, })
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class QuestionDetail(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         if QuestionSet.objects.filter(id=pk).exists():

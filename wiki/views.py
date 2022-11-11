@@ -4,6 +4,8 @@ from articles.models import Article
 from django.contrib import messages
 from .models import *
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 class ListChanges(View):
@@ -17,6 +19,7 @@ class ListChanges(View):
         return render(request, "wiki/list-changes.html", {"changes": changes, "article": article, })
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class EditArticle(LoginRequiredMixin, View):
     def get(self, request, pk, *args, **kwargs):
         if Article.objects.filter(id=pk).exists():

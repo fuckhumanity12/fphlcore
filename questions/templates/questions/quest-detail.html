@@ -9,7 +9,6 @@
         <h6 class="text-center">Number Of Questions: {{questions.questions.count}}</h6>
         <h6 class="text-center">Subjects Included: {% for subj in questions.subjects.all %}{{subj.name}}.{% endfor %}</h6>
         <form method="post" class="mx-auto">
-            {% csrf_token %}
             {% for quest in questions.questions.all %}
                 <div class="card mx-auto mb-3" style="max-width: 540px;">
                     <div class="row g-0">
