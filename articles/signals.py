@@ -15,11 +15,11 @@ def create_saved(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Article)
 def create_newsletter(sender, instance, created, **kwargs):
     if instance.newsletter:
-        subject = f'New Article: {instance.title}'
+        subject = f'New Article 🥳🥳: {instance.title}'
         emails = User.objects.filter(is_active=True).exclude(
             email='').exclude(is_active=False).values_list('email', flat=True)
         message = render_to_string(
-            'articles/new_article_newsletter.html', {'article': instance, })
+            'articles/article-newsletter.html', {'article': instance, })
         for email in emails:
             send_mail(subject, message, "forensicphonetician@gmail.com",
                       [email], fail_silently=True)
