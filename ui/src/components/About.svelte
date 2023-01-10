@@ -1,3 +1,0 @@
-<p class="text-center">This website is made and maintained by <a href="https://github.com/fuckhumanity12" rel="noreferrer" target="_blank" class="text-decoration-none">Mohab Gabber</a></p>
-<p class="text-center">The content on this website is made by the students of Forensic Phonetics & Linguistics, Alexandria University</p>
-<p class="text-center">All the code here is open-source and can be accessed on this <a href="https://github.com/fuckhumanity12/fphlcore" rel="noreferrer" target="_blank" class="text-decoration-none btn btn-primary"><i class="fa-brands fa-github"></i> github repo</a></p>
