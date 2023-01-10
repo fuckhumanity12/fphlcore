@@ -15,11 +15,9 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'wiki.apps.WikiConfig',
     'questions.apps.QuestionsConfig',
-    'ui.apps.UiConfig',
 
     # * Libraries and Frameworks
 
-    'rest_framework',
     'tinymce',
 
     # * Django Stuff
@@ -116,9 +114,9 @@ SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 # * Libraries Configuration
 
 TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
+TINYMCE_COMPRESSOR = False
 
-TINYMCE_JS_URL = config["tinymcejs"]
+TINYMCE_JS_URL = 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'
 
 TINYMCE_DEFAULT_CONFIG = {
     "height": "320px",

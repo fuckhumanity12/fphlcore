@@ -15,8 +15,7 @@ urlpatterns = [
 
     # * Apps
 
-    path("", include("ui.urls")),
-    path("articles/", include("articles.urls")),
+    path("", include("articles.urls")),
     path("auth/", include("users.urls")),
     path("questions/", include("questions.urls")),
     path("wiki/", include("wiki.urls")),

@@ -1,26 +1,26 @@
 {% extends "users/base.html" %}
-{% block descriptionmeta %}The best place to learn forensic phonetics & linguistics on the web, explore all subjects, english, phonetics,
-phonology, linguistics, and much more.{% endblock descriptionmeta %}
-{% block metatags %}
 
-{% endblock metatags %}
-{% block title %}Home Page{% endblock title %}
+{% block descriptionmeta %}The best place to
+learn forensic phonetics & linguistics on the web, explore all subjects,
+english, phonetics, phonology, linguistics, and much more.{% endblock descriptionmeta %}
+
+{% block title %}Home Page{% endblock title %} 
 
 {% block content %}
 
 <div class="container">
-    <div class="row mx-auto">
-        <h1 class="text-center">Check Out Our Articles</h1>
-        {% for article in articles %}
-            {% if article in request.user.saved_articles.articles %}
-            {% include 'articles/articles-saved-template.html' %}
-            {% else %}
-            {% include 'articles/articles-template.html' %}
-            {% endif %}
-        {% endfor %}
-        {% include 'articles/pagination.html' %}
-        <br>
-    </div>
+	<div class="row mx-auto">
+		<h1 class="text-center">Check Out Our Articles</h1>
+		{% for article in articles %} 
+			{% if article in request.user.saved_articles.articles %} 
+				{% include 'articles/articles-saved-template.html' %} 
+			{% else %} 
+				{% include 'articles/articles-template.html' %} 
+			{% endif %} 
+		{% endfor %}
+		<br />
+	</div>
+	{% include 'articles/pagination.html' %}
 </div>
 
 {% endblock content %}
