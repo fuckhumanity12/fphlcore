@@ -9,20 +9,29 @@ DEBUG = config["debug"]
 ALLOWED_HOSTS = ['127.0.0.1', 'fphl.org', "www.fphl.org"]
 SITE_ID = 1
 INSTALLED_APPS = [
+    # * Apps
+
+    'articles.apps.ArticlesConfig',
+    'users.apps.UsersConfig',
+    'wiki.apps.WikiConfig',
+    'questions.apps.QuestionsConfig',
+    'ui.apps.UiConfig',
+
+    # * Libraries and Frameworks
+
+    'rest_framework',
+    'tinymce',
+
+    # * Django Stuff
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'articles.apps.ArticlesConfig',
-    'users.apps.UsersConfig',
-    'wiki.apps.WikiConfig',
-    'questions.apps.QuestionsConfig',
     'django.contrib.sites',
     'django.contrib.sitemaps',
-    'rest_framework',
-    'tinymce',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,35 +79,47 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
-USE_I18N = True
-USE_TZ = True
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# * Static and Media Configuration
+
 STATIC_URL = 'static/'
 STATIC_ROOT = config["static_root"]
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 MEDIA_ROOT = config["media_root"]
 MEDIA_URL = '/media/'
-LOGIN_REDIRECT_URL = 'home'
-LOGIN_URL = 'login'
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-SESSION_COOKIE_HTTPONLY = True
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5000000
-CSRF_COOKIE_HTTPONLY = True
+
+# * Email Configuration
+
 EMAIL_BACKEND = "django_smtp_ssl.SSLEmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = config['emuser']
 EMAIL_HOST_PASSWORD = config["empass"]
 EMAIL_PORT = 465
-EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = config['emfrommail']
+EMAIL_USE_TLS = True
+
+
+# ! Security Configuration
+
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+X_FRAME_OPTIONS = "SAMEORIGIN"
 SECURE_HSTS_SECONDS = 2_592_000
 SECURE_HSTS_PRELOAD = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+# * Libraries Configuration
+
+TINYMCE_SPELLCHECKER = True
+TINYMCE_COMPRESSOR = True
+
 TINYMCE_JS_URL = config["tinymcejs"]
+
 TINYMCE_DEFAULT_CONFIG = {
     "height": "320px",
     "width": "960px",
@@ -111,9 +132,13 @@ TINYMCE_DEFAULT_CONFIG = {
     "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
     "a11ycheck ltr rtl | showcomments addcomment code",
     "custom_undo_redo_levels": 10,
-    # To force a specific language instead of the Django current language.
     "language": "en_US",
 }
-TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
-X_FRAME_OPTIONS = "SAMEORIGIN"
+
+# * Misc
+
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_TZ = True
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

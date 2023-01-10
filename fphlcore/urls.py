@@ -12,16 +12,24 @@ sitemaps = {
 }
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("articles.urls")),
+
+    # * Apps
+
+    path("", include("ui.urls")),
+    path("articles/", include("articles.urls")),
     path("auth/", include("users.urls")),
     path("questions/", include("questions.urls")),
     path("wiki/", include("wiki.urls")),
+
+    # * SEO
     path("favicon.ico", RedirectView.as_view(
         url=staticfiles_storage.url("favicon.ico")),),
-    path('tinymce/', include('tinymce.urls')),
     path('robots.txt', TemplateView.as_view(
         template_name="articles/robots.txt", content_type='text/plain')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap')
+         name='django.contrib.sitemaps.views.sitemap'),
+
+    # * Libraries and Frameworks
+    path('tinymce/', include('tinymce.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
