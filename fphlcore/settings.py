@@ -1,11 +1,9 @@
 from pathlib import Path
 import os
-import json
-with open('/etc/config.json') as config_file:
-    config = json.load(config_file)
+from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = config["secret_key"]
-DEBUG = config["debug"]
+SECRET_KEY = config("secret_key")
+DEBUG = config("debug")
 ALLOWED_HOSTS = ['127.0.0.1', 'fphl.org', "www.fphl.org"]
 SITE_ID = 1
 INSTALLED_APPS = [
@@ -82,9 +80,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # * Static and Media Configuration
 
 STATIC_URL = 'static/'
-STATIC_ROOT = config["static_root"]
+STATIC_ROOT = config("static_root")
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-MEDIA_ROOT = config["media_root"]
+MEDIA_ROOT = config("media_root")
 MEDIA_URL = '/media/'
 FILE_UPLOAD_MAX_MEMORY_SIZE = 5000000
 
@@ -92,10 +90,10 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 5000000
 
 EMAIL_BACKEND = "django_smtp_ssl.SSLEmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = config['emuser']
-EMAIL_HOST_PASSWORD = config["empass"]
+EMAIL_HOST_USER = config('emuser')
+EMAIL_HOST_PASSWORD = config("empass")
 EMAIL_PORT = 465
-DEFAULT_FROM_EMAIL = config['emfrommail']
+DEFAULT_FROM_EMAIL = config('emfrommail')
 EMAIL_USE_TLS = True
 
 
