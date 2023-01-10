@@ -33,7 +33,7 @@ class EditArticle(LoginRequiredMixin, View):
         if Article.objects.filter(id=pk).exists():
             article = Article.objects.get(id=pk)
             if request.POST.get("newarti") == article.content:
-                messages.warning("No Changes Were Made")
+                messages.warning(request, "No Changes Were Made")
                 return redirect("article-detail", article.id)
             else:
                 saved = ArticleHistory.objects.create(
